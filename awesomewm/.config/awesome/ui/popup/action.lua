@@ -4,7 +4,6 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 local helpers = require("helpers")
 local naughty = require("naughty")
-local rubato = require("lib.rubato")
 F.action = {}
 
 local notifs_text = wibox.widget {
@@ -267,35 +266,13 @@ local action = awful.popup {
   bg = beautiful.bg_normal,
 }
 
-local slide = rubato.timed {
-  pos = 300,
-  rate = 60,
-  intro = 0.3,
-  duration = 0.8,
-  easing = rubato.quadratic,
-  awestore_compat = true,
-  subscribed = function(pos)
-    action.x = pos
-  end,
-}
-
-local action_status = false
-
-slide.ended:subscribe(function()
-  if action_status then
-    action.visible = false
-  end
-end)
 
 local function action_show()
   action.visible = true
-  slide:set(1550)
-  action_status = false
 end
 
 local function action_hide()
-  slide:set(2000)
-  action_status = true
+  action.visible = false
 end
 
 F.action.toggle = function()

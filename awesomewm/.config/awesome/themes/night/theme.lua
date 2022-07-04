@@ -34,8 +34,8 @@ theme.darker_bg = "#0A1419"
 theme.lighter_bg = "#162026"
 theme.transparent = "#00000000"
 
-theme.font          = "Proxima Nova Bold 11"
-theme.font_name     = "Proxima Nova "
+theme.font          = "Fira Mono Bold 11"
+theme.font_name     = "Fira Mono "
 theme.icon_font     = "Material Icons "
 theme.icon_font2     = "Feather "
 

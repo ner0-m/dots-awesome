@@ -1,13 +1,10 @@
 pcall(require, "luarocks.loader")
 
-local gears = require("gears")
 local awful = require("awful")
-require("awful.autofocus")
 local beautiful = require("beautiful")
-local bling = require("lib.bling")
 local naughty = require("naughty")
-local ruled = require("ruled")
-local menubar = require("menubar")
+
+require("awful.autofocus")
 require("awful.hotkeys_popup.keys")
 
 naughty.connect_signal("request::display_error", function(message, startup)
