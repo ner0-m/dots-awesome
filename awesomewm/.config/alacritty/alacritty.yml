@@ -35,22 +35,24 @@ window:
 
 font:
   normal:
-    family: Iosevka Nerd Font
+    family: Fira Mono
     style: Regular
 
   bold:
-    family: Iosevka Nerd Font
+    family: Fira Mono
+    # family: Iosevka Nerd Font
     style: Bold
 
   italic:
-    family: Iosveka Nerd Font
+    family: Fira Mono
+    # family: Iosveka Nerd Font
     style: Italic
 
   bold_italic:
-    family: Iosevka Nerd Font
+    family: Fira Mono
+    # family: Iosevka Nerd Font
     style: Bold Italic
-
-  size: 10
+  size: 11
 
   offset:
     x: 0
@@ -58,8 +60,9 @@ font:
 
 cursor:
   style: Underline
-
-
   vi_mode_style: 'Underline'
 
 live_config_reload: true
+
+shell:
+  program: /usr/bin/zsh
