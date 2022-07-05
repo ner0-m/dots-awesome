@@ -63,6 +63,10 @@ require("ui.notifications")
 -- {{{ Dashboard
 require("ui.popup.action")
 -- }}}
+
+-- {{{ Exit screen
+require("ui.widgets.exit_screen")
+-- }}}
 awful.spawn.with_shell("picom")
 
 
