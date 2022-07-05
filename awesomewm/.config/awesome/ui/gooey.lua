@@ -136,4 +136,35 @@ function M.make_prompt_widget(prompt, opts)
 	})
 end
 
+-- TODO: Give proper credits to Grumph from Reddit and their GitLab link
+-- Hide/close the given widget according to the hide_fn
+function M.click_to_hide_popup(widget, hide_fn, only_outside)
+	-- By default only close if clicked outside
+	only_outside = only_outside or true
+
+	-- default function to hide on click
+	hide_fn = hide_fn
+		or function(obj)
+			if only_outside and obj == widget then
+				return
+			end
+
+			widget.visible = false
+		end
+
+	local click_bind = awful.button({}, 1, hide_fn)
+
+	widget:connect_signal("property::visible", function(w)
+		if not w.visible then
+			wibox.disconnect_signal("button::press", hide_fn)
+			client.disconnect_signal("button::press", hide_fn)
+			awful.mouse.remove_global_mousebinding(click_bind)
+		else
+			awful.mouse.append_global_mousebinding(click_bind)
+			wibox.connect_signal("button::press", hide_fn)
+			client.connect_signal("button::press", hide_fn)
+		end
+	end)
+end
+
 return M
