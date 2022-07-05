@@ -2,7 +2,13 @@ local gears = require("gears")
 local awful = require("awful")
 local beautiful = require("beautiful")
 local wibox = require("wibox")
-local helpers = require("helpers")
+local xresources = require("beautiful.xresources")
+local gooey      = require("ui.gooey")
+local dpi = xresources.apply_dpi
+
+local font_size = dpi(15)
+local font_size_header = dpi(18)
+
 local styles = {}
 
 styles.month = {
@@ -12,7 +18,7 @@ styles.month = {
 styles.normal = {
 	fg_color = beautiful.fg_dark,
 	markup = function(t)
-		return "<span font_desc='" .. beautiful.font_name .. " Bold 9" .. "'>" .. t .. "</span>"
+		return "<span font_desc='" .. beautiful.font_name .. " Bold " .. tostring(font_size) .. "'>" .. t .. "</span>"
 	end,
 }
 
@@ -20,20 +26,26 @@ styles.focus = {
 	fg_color = beautiful.yellow,
 	bg_color = beautiful.bg,
 	markup = function(t)
-		return "<span font_desc='" .. beautiful.font_name .. " Bold 9" .. "'>" .. t .. "</span>"
+		return "<span font_desc='" .. beautiful.font_name .. " Bold " .. tostring(font_size) .. "'>" .. t .. "</span>"
 	end,
 	padding = 5,
 }
 
 styles.header = {
 	markup = function(t)
-		return "<span font_desc='" .. beautiful.font_name .. " Bold 15" .. "'>" .. t .. "</span>"
+		return "<span font_desc='"
+			.. beautiful.font_name
+			.. " Bold "
+			.. tostring(font_size_header)
+			.. "'>"
+			.. t
+			.. "</span>"
 	end,
 }
 styles.weekday = {
 	fg_color = beautiful.fg_dark,
 	markup = function(t)
-		return "<span font_desc='" .. beautiful.font_name .. " Bold 9" .. "'>" .. t .. "</span>"
+		return "<span font_desc='" .. beautiful.font_name .. " Bold " .. tostring(font_size) .. "'>" .. t .. "</span>"
 	end,
 }
 
@@ -83,6 +95,8 @@ local calendar = awful.popup({
 	end,
 	ontop = true,
 })
+
+gooey.click_to_hide_popup(calendar)
 
 local current_month = os.date("*t").month
 calendar_widget:buttons(gears.table.join(
