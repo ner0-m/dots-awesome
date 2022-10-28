@@ -10,9 +10,12 @@ function M.make_button(opts)
 
 	local icon = opts.icon or "default"
 	local icon_color = opts.icon_fg or "#00000000"
+	local icon_ext = opts.icon_ext or "svg"
 	local icon_widget = wibox.widget({
+		align = "center",
+		valign = "center",
 		widget = wibox.widget.imagebox,
-		image = icons_dir .. icon .. ".svg",
+		image = icons_dir .. icon .. "." .. icon_ext,
 		stylesheet = " * { stroke: " .. icon_color .. " }",
 	})
 
@@ -155,6 +158,7 @@ function M.click_to_hide_popup(widget, hide_fn, only_outside)
 	local click_bind = awful.button({}, 1, hide_fn)
 
 	widget:connect_signal("property::visible", function(w)
+		local naughty = require("naughty")
 		if not w.visible then
 			wibox.disconnect_signal("button::press", hide_fn)
 			client.disconnect_signal("button::press", hide_fn)

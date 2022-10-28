@@ -10,7 +10,7 @@ local helpers = require("helpers")
 local exit_screen_grabber
 
 local function exit()
-	awful.quit()
+	awesome.quit()
 end
 
 local function reboot()
@@ -24,11 +24,12 @@ local function poweroff()
 end
 
 local poweroff_button = require("ui.gooey").make_button({
-	icon = "poweroff",
+	icon = "power",
+        icon_ext = "png",
 	bg = beautiful.background,
 	fg = beautiful.white,
 	width = dpi(200),
-        margin = 100,
+        margins = 0,
 	hover = true,
 	exec = function()
 		poweroff()
@@ -37,11 +38,12 @@ local poweroff_button = require("ui.gooey").make_button({
 helpers.add_hover_cursor(poweroff_button, "hand1")
 
 local reboot_button = require("ui.gooey").make_button({
-	icon = "bell2",
+	icon = "restart",
+        icon_ext = "png",
 	bg = beautiful.background,
 	fg = beautiful.white,
 	width = dpi(200),
-        margin = 100,
+        margins = 0,
 	hover = true,
 	exec = function()
 		reboot()
@@ -52,10 +54,11 @@ helpers.add_hover_cursor(reboot_button, "hand1")
 
 local exit_button = require("ui.gooey").make_button({
 	icon = "logout",
+        icon_ext = "png",
 	bg = beautiful.background,
 	fg = beautiful.white,
 	width = dpi(200),
-        margin = 100,
+        margins = 0,
 	hover = true,
 	exec = function()
 		exit()

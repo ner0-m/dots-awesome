@@ -29,7 +29,7 @@ naughty.config.defaults.ontop       = true
 naughty.config.defaults.screen      = awful.screen.focused()
 naughty.config.defaults.timeout     = 3
 naughty.config.defaults.title       = "Notification!"
-naughty.config.defaults.position    = "top_right"
+naughty.config.defaults.position    = "bottom_right"
 naughty.config.defaults.border_width = 0
 
 naughty.config.presets.low.timeout      = 3

@@ -16,7 +16,7 @@ local time = wibox.widget({
 	bg = beautiful.bg_normal,
 	buttons = {
 		awful.button({}, 1, function()
-			require("ui.popup.calender")()
+			require("ui.popup.calendar")()
 		end),
 	},
 	{
@@ -36,8 +36,8 @@ local action_icon = require("ui.gooey").make_button({
 	icon = "bell2",
 	bg = beautiful.background,
 	fg = beautiful.white,
-	width = 34,
-	margins = 6.9,
+	width = dpi(34),
+	margins = dpi(4),
 	hover = true,
 	exec = function()
 		F.action.toggle()
@@ -45,6 +45,21 @@ local action_icon = require("ui.gooey").make_button({
 })
 
 helpers.add_hover_cursor(action_icon, "hand1")
+
+local systray = wibox.widget.systray()
+systray:set_base_size(dpi(34))
+
+-- Launcher
+launcher = wibox.widget({
+	buttons = {
+		awful.button({}, 1, function()
+			awesome.emit_signal("widget::launcher")
+		end),
+	},
+	image = beautiful.awesome_icon,
+	widget = wibox.widget.imagebox,
+})
+
 screen.connect_signal("request::desktop_decoration", function(s)
 	-- Each screen has its own tag table.
 	awful.tag({ "1", "2", "3", "4", "5" }, s, awful.layout.layouts[1])
@@ -72,7 +87,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		},
 	})
 
-        helpers.add_hover_cursor(s.mylayoutbox, "hand1")
+	helpers.add_hover_cursor(s.mylayoutbox, "hand1")
 
 	-- Create a taglist widget
 	s.mytaglist = awful.widget.taglist({
@@ -170,18 +185,40 @@ screen.connect_signal("request::desktop_decoration", function(s)
 			{
 				layout = wibox.layout.align.horizontal,
 				expand = "none",
-				{
-
-					s.mytaglist,
-					margins = dpi(9),
-					widget = wibox.container.margin,
-				},
-				time,
-				{
+				-- Left widgets
+				{ 
+                                        layout = wibox.layout.fixed.horizontal,
+                                        spacing = dpi(20),
 					{
-						margins = dpi(9.7),
+						launcher,
+						top = dpi(10),
+						bottom = dpi(10),
+						left = dpi(10),
 						widget = wibox.container.margin,
 					},
+					{
+                                            s.mytaglist,
+                                            right = dpi(20),
+                                            widget = wibox.container.margin,
+                                        }
+				},
+
+				-- Center widgets
+				{
+					time,
+					widget = wibox.container.margin,
+				},
+				-- Right widgets
+				{
+					-- {
+					-- 	margins = dpi(9.7),
+					-- 	widget = wibox.container.margin,
+					-- },
+					-- require("ui.widgets.wifi"),
+					wibox.container.place(systray),
+					require("ui.widgets.battery")({
+						warning_msg_icon = "~/.dotfiles/dots-awesome/awesomewm/.config/awesome/icons",
+					}),
 					action_icon,
 					s.mylayoutbox,
 					layout = wibox.layout.fixed.horizontal,

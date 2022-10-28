@@ -66,6 +66,7 @@ require("ui.popup.action")
 
 -- {{{ Exit screen
 require("ui.widgets.exit_screen")
+require("ui.widgets.launcher")
 -- }}}
 awful.spawn.with_shell("picom")
 

@@ -52,7 +52,7 @@ font:
     family: Fira Mono
     # family: Iosevka Nerd Font
     style: Bold Italic
-  size: 11
+  size: 12
 
   offset:
     x: 0

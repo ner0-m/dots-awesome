@@ -4,10 +4,15 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 local helpers = require("helpers")
 local naughty = require("naughty")
+local gooey = require("ui.gooey")
+
+local xresources = require("beautiful.xresources")
+local dpi = xresources.apply_dpi
+
 F.action = {}
 
 local notifs_text = wibox.widget({
-	font = beautiful.font_name .. " Bold 20",
+	font = beautiful.font_name .. " Bold " .. tostring(dpi(14)),
 	markup = "Notifications",
 	halign = "center",
 	widget = wibox.widget.textbox,
@@ -15,7 +20,7 @@ local notifs_text = wibox.widget({
 
 local notifs_clear = wibox.widget({
 	markup = "<span foreground='" .. beautiful.red .. "'> </span>",
-	font = beautiful.icon_font2 .. " Bold 14",
+	font = beautiful.icon_font2 .. " Bold " .. tostring(dpi(14)),
 	align = "center",
 	valign = "center",
 	widget = wibox.widget.textbox,
@@ -32,7 +37,7 @@ local notifs_empty = wibox.widget({
 			nil,
 			{
 				markup = "<span foreground='" .. beautiful.fg_minimize .. "'>Nothing Here!</span>",
-				font = beautiful.font_name .. " Bold 17",
+				font = beautiful.font_name .. " Bold " .. tostring(dpi(12)),
 				align = "center",
 				valign = "center",
 				widget = wibox.widget.textbox,
@@ -266,6 +271,8 @@ local action = awful.popup({
 	bg = beautiful.bg_normal,
 })
 
+gooey.click_to_hide_popup(action)
+
 local function action_show()
 	action.visible = true
 end
@@ -275,9 +282,9 @@ local function action_hide()
 end
 
 -- Close if the mouse leaves
-action:connect_signal("mouse::leave", function()
-	action.visible = false
-end)
+-- action:connect_signal("mouse::leave", function()
+-- 	action.visible = false
+-- end)
 
 F.action.toggle = function()
 	if action.visible then
